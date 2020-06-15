@@ -1,0 +1,54 @@
+﻿@model Projeto.Presentation.Mvc.Models.FuncionarioCadastroModel
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Cadastro de Funcionário</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <label>Nome do Funcionário:</label>
+    @Html.TextBoxFor(model => model.Nome,
+        new
+            {
+              @class = "form-control col-md-4",
+              @autocomplete = "off",
+              @placeholder = "Digite aqui"
+            })
+    <span class="text-danger">
+        @Html.ValidationMessageFor(model => model.Nome)
+    </span>
+    <br />
+
+    <label>Salário:</label>
+    @Html.TextBoxFor(model => model.Salario,
+        new
+            {
+              @class = "form-control col-md-4",
+              @autocomplete = "off",
+              @placeholder = "Digite aqui"
+            })
+    <span class="text-danger">
+        @Html.ValidationMessageFor(model => model.Salario)
+    </span>
+    <br />
+
+    <label>Data de Admissão:</label>
+    @Html.TextBoxFor(model => model.DataAdmissao,
+        new
+            {
+              @class = "form-control col-md-4",
+              @autocomplete = "off",
+              @placeholder = "Digite aqui"
+            })
+    <span class="text-danger">
+        @Html.ValidationMessageFor(model => model.DataAdmissao)
+    </span>
+    <br />
+
+    <input type="submit" value="Cadastrar Funcionário"
+           class="btn btn-success"/>
+
+}

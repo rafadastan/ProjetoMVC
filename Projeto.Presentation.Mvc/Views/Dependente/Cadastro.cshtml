@@ -1,0 +1,48 @@
+﻿@model Projeto.Presentation.Mvc.Models.DependenteCadastroModel
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Cadastro de Dependentes</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <label>Nome do Dependente:</label>
+    @Html.TextBoxFor(model => model.Nome,
+        new
+        {
+            @class = "form-control col-md-4",
+            @autocomplete = "off",
+            @placeholder = "Digite aqui"
+        })
+    <span class="text-danger">
+        @Html.ValidationMessageFor(model => model.Nome)
+    </span>
+    <br />
+
+    <label>Data de Nascimento:</label>
+    @Html.TextBoxFor(model => model.DataNascimento,
+        new
+        {
+            @class = "form-control col-md-4",
+            @autocomplete = "off",
+            @placeholder = "Digite aqui"
+        })
+    <span class="text-danger">
+        @Html.ValidationMessageFor(model => model.DataNascimento)
+    </span>
+    <br />
+
+    <label>Selecione o Funcionário</label>
+    @Html.DropDownListFor(model => model.IdFuncionario, Model.ListaDeFuncionarios,
+        "Selecione uma opção", new { @class = "form-control col-md-4" })
+    <span class="text-danger">
+        @Html.ValidationMessageFor(model => model.IdFuncionario)
+    </span>
+    <br />
+
+    <input type="submit" value="Cadastrar Dependente"
+           class="btn btn-success" />
+}

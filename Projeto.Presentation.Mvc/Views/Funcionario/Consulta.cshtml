@@ -1,0 +1,80 @@
+﻿@model Projeto.Presentation.Mvc.Models.FuncionarioConsultaModel
+
+@{
+    //definindo o layout da página
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Consulta de Funcionários</h2>
+<hr/>
+
+@using (Html.BeginForm())
+{
+    <label>Nome do Funcionário:</label>
+    @Html.TextBoxFor(model => model.Nome,
+        new {
+            @class = "form-control col-md-4",
+            @autocomplete = "off",
+            @placeholder = "Digite aqui o filtro de busca"
+        })
+    <span class="text-danger">
+        @Html.ValidationMessageFor(model => model.Nome)
+    </span>
+    <br/>
+
+    <input type="submit" value="Pesquisar Funcionários"
+           class="btn btn-success"/>
+}
+
+<br />
+
+@if(Model != null && Model.Funcionarios != null)
+{
+    if(Model.Funcionarios.Count > 0)
+    {
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome do Funcionário</th>
+                    <th>Salário</th>
+                    <th>Data de Admissão</th>
+                    <th>Operações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Funcionarios)
+                {
+                    <tr>
+                        <td>@item.IdFuncionario</td>
+                        <td>@item.Nome</td>
+                        <td>@item.Salario.ToString("c")</td>
+                        <td>@item.DataAdmissao.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <a href="/Funcionario/Edicao/@item.IdFuncionario" 
+                               class="btn btn-primary btn-sm">
+                                Atualizar
+                            </a>
+                            <a href="/Funcionario/Exclusao/@item.IdFuncionario" 
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Deseja excluir o funcionário?');">
+                                Excluir
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Quantidade de funcionários: @Model.Funcionarios.Count
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+    else
+    {
+        <span class="text-danger">Nenhum funcionário foi encontrado.</span>
+    }
+}
